@@ -76,3 +76,22 @@ u
 
 v <- strsplit(u, " ")
 v
+
+#1.4.3 Matrices
+m <- rbind(c(1,4), c(2,2))
+m
+m %*% c(1,1)
+
+m[1,2]
+m[1,]
+m[,2]
+
+#1.4.4 Lists
+x <- list(u=2, v="abc")
+x
+x$u
+
+hn <- hist(Nile)
+print(hn)
+hn
+str(hn)
