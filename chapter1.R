@@ -95,3 +95,19 @@ hn <- hist(Nile)
 print(hn)
 hn
 str(hn)
+
+#1.4.5 Data Frames
+d <- data.frame(list(kids=c('Jack', 'Jill'), ages=c(12,10)))
+d
+d$ages
+
+#####
+# Section 1.5: Extended Example: Regression Analysis of Exam Grades
+
+# Don't seem to have the data here... That's annoying. 
+# I guess I'll type it out anyway, but it won't work without the data.
+
+
+
+
+
