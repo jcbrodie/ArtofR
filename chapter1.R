@@ -95,3 +95,28 @@ hn <- hist(Nile)
 print(hn)
 hn
 str(hn)
+
+#1.4.5 Data Frames
+d <- data.frame(list(kids=c("Jack", "Jill"), ages=c(12, 10)))
+d
+d$ages
+
+
+#####
+# Section 1.5: Extended Example: Regression Analysis of Exam Grades
+
+# Lame-ly, I can't seem to find the data used for this example. 
+# So I'll type it in anyway, but it won't actually work....
+
+examsquiz <- read.table("ExamsQuiz.txt", header=FALSE)
+class(examsquiz)
+head(examsquiz)
+
+# here, lm() is the Limear Model function which instructs R to fit the following equation:
+# predicted Exam 2 = B0 + B1(Exam1)
+lma <- lm(examsquiz[,2] ~ examsquiz[,1])
+
+#this is equivalent:
+lma <- lm(examsquiz$V2 ~ examsquiz$V1)
+
+attributes(lma)
