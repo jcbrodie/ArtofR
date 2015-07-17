@@ -120,3 +120,56 @@ lma <- lm(examsquiz[,2] ~ examsquiz[,1])
 lma <- lm(examsquiz$V2 ~ examsquiz$V1)
 
 attributes(lma)
+
+lma$coef
+
+lma
+
+summary(lma)
+
+lmb <- lm(examsquiz[,2] ~ examsquiz[,1] + examsquiz[,3])
+
+
+#####
+# Section 1.6: Startup and Shutdown
+
+getwd() #to get the current working directory
+#setwd(dir) to set it
+
+?Startup  #to learn about options for startup
+
+
+#####
+# Section 1.7: Getting Help
+
+#these commands both do the same thing
+help(seq)
+?seq
+
+# need to use quotes sometimes
+?">"  
+? "for"
+
+#1.7.2 The example() functino
+
+example("seq")
+example("persp")
+
+#1.7.3 If you don't know what you're looking for....
+help.search("multivariate normal")  #seems like this doesn't actually get any results...
+help.search("normal") #does though
+??"multivariate" # is the same command
+
+#1.7.4 Help for other topics
+?mvrnorm #doesn't work.... (because it's in MASS?)
+??mvrnorm
+
+help(package=MASS)
+
+?files
+
+# 1.7.5 Help for batch mode
+# not really relevant here, but use it on the command line
+
+#1.7.6 Help on the Interet
+#lists a bunch of links, etc.
