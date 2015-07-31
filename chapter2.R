@@ -169,5 +169,46 @@ any(x > 88)
 all(x > 8)
 all(x > 0)
 
+# 2.5.1 Extended Example: Finding Runs of Consecutive Ones
+# start with a function to do this:
+
+findruns <- function(x,k) {
+    n <- length(x)
+    runs <- NULL
+    for (i in 1:(n-k+1)){
+        if(all(x[i:(i+k-1)]==1)){
+            runs <- c(runs,i)
+        }
+        return(runs)
+    }
+}
+
+#let's test it:
+y <- c(1,0,0,1,1,1,0,1,1)
+findruns(y,3)
+findruns(y,2)
+findruns(y,6)
+
+#although the code is correct, it may be slow since each call to runs<-c(runs,i) allocates a new vector
+#an alternative is to preallocate the memory space like this:
+findruns1 <- function(x,k) {
+    n <- length(x)
+    runs <- vector(length=n)
+    count <- 0
+    for (i in 1:(n-k+1)){
+        if(all(x[i:(i+k-1)]==1)){
+            count <- count + 1
+            runs[count] <- i
+        }
+    }
+    if (count > 0){
+        runs <- runs [1:count]
+    } else runs <- NULL
+    return(runs)
+}
+
+
+# 2.5.2: Extended Example: Predicting Discrete-Valued Time Series
+
 
 
