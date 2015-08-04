@@ -210,5 +210,98 @@ findruns1 <- function(x,k) {
 
 # 2.5.2: Extended Example: Predicting Discrete-Valued Time Series
 
+#a naive approach:
+preda <- function(x,k){
+    n <- length(x)
+    k2 <- k/2
+    #the vector pred will contain our predicted values
+    pred <- vector(length=n-k)
+    for (i in 1:(n-k)){
+        if (sum(x[i:(i+(k-1))]) >= k2) pred[i] <- 1 else pred[i] <- 0
+    }
+    return(mean(abs(pred-x[(k+1):n])))
+}
+
+# above coding is straightforward, simple, and compact
+#BUT, it is probably slow
+# Let's rewrite it now to take advantage of previous computation
+# In each iteration we will update the previous sum we found rather than computing the new sum from scratch
+
+predb <- function(x,k) {
+    n <- length(x)
+    k2 <- k/2
+    pred <- vector(length=n-k)
+    sm <- sum(x[1:k])
+    if (sm >= k2) pred[1] <- 1 else pred[1] <- 0
+    if (n-k >= 2) {
+        for (i in 2:(n-k)){
+            sm <- sm + x[i+k-1] - x[i-1]
+            if (sm >= k2) pred[i] <- 1 else pred[i] <- 0
+        }
+    }
+    return(mean(abs(pred-x[(k+1):n])))
+}
+
+# the above implementation is good, but we could use cumsum to improve it further:
+predc <- function(x,k) {
+    n <- length(x)
+    k2 <- k/2
+    pred <- vector(length=n-k)
+    csx <- c(o,cumsum(x))
+    for (i in 1:(n-k)){
+        if (csx[i+k] - csx[i] >= k2) pred[i] <- 1 else pred[i] <- 0
+    }
+    return(mean(abs(pred-x[(k+1):n])))
+}
+
+# the above approach using cumsum requires just one subtraction operation per iteration of the loop, compared to two in predb
+
+
+#####
+# 2.6 Vectorized Operations
+
+# One of the most effective ways to achieve speed in R code is to use vectorized operations
+
+# 2.6.1: Vector In, Vector Out
+# first some examples of vectorized functions
+
+u <- c(5,2,8)
+v <- c(1,3,9)
+u > v
+
+# example of an R function using vectorized operations
+w <- function(x) return x+1
+w(u)
+
+sqrt(1:9)
+
+y <- c(1.2, 3.9, 0.4)
+z <- round(y)
+
+# even operators like + are really functions:
+y <- c(12,5,13)
+y+4
+
+#the same thing explicitly:
+'+'(y,4)  ## note too that recycling occurs here! 4 becomes (4,4,4).
+
+#now let's consider vectorized functions that appear to have scalar arguments
+f <- function(x,c) return ((x+c)^2)  #c is intended to be a scalar here
+f(1:3, 0)
+f(1:3, 1)
+
+# BUT, there is nothing in f() that keeps us from using a vector, eg:
+f(1:3, 1:3)
+
+#to restrict c to scalars, add some kind of check, for example:
+f <- function(x,c){
+    if (length(c) !0 1) stop ("vector c not allowed")
+    return((x+c)^2)
+}
+
+
+# 2.6.2: Vector In, Matrix Out
+
+
 
 
