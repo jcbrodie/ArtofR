@@ -302,6 +302,88 @@ f <- function(x,c){
 
 # 2.6.2: Vector In, Matrix Out
 
+z12 <- function(z) return(c(z, z^2))
+x <- 1:8
+z12(x) #returns 16 numbers
+#would be natural to represent these numbers as a matrix
+#we can use the matrix function:
+matrix(z12(x), ncol=2)
+
+#we can streamline things using sapply (simplify apply)
+#the call sapply(x,f) applies the function f() to each element of x and then converts the result to a matrix
+#here is an example:
+z12 <- function(z) return (c(z, z^2))
+sapply(1:8, z12) ## note, sapply is discussed further in Ch4
+
+
+#####
+# 2.7 NA and NULL Values
+
+# Missing data is represented in R as NA
+# NULL represents that the value in question simply doesn't exist, rather than being existent but unknown
+
+# 2.7.1 Using NA
+# In many of R's functions we can instruct the function to skip over any missing values, or NAs
+# for example:
+x <- c(88, NA, 12, 168, 13)
+x
+mean(x)
+mean(x, na.rm=TRUE)
+x <- c(88, NULL, 12, 168, 13)
+mean(x)
+
+#So we have to specify if we want R to ignore the NA, but it will automatically ignore a NULL
+
+#There are multiple NA values, one for each mode:
+x <- c(5, NA, 12)
+mode(x[1])
+mode(x[2])
+
+y <- c("abc", "def", NA)
+mode(y[2])
+mode(y[3])
+
+
+#2.7.2 Using NULL
+#One use of NULL is to build up vectors in loops, in which each iteration adds another element to the vector
+#in this example we build up a vector of even numbers:
+z <- NULL
+for (i in 1:10) if (i %% 2 == 0) z <- c(z,i)
+z
+
+#of course that is quite an artificial example, and there are better ways to do this task. 
+#here are two more ways to find even numbers in 1:10
+seq(2,10,2)
+2*1:5
+
+#BUT, the point was to demonstrate the differences between NA and NULL
+#If we were to use NA in the previous example, we would get an unwanted NA in the result:
+z <- NA
+for (i in 1:10) if (i %% 2 == 0) z <- c(z,i)
+z
+
+
+#NULL values are really counted as nonexistent, as you can see here:
+u <- NULL
+length(u)
+v <- NA
+length(v)
+
+## NULL is a special R object with no mode! ##
+
+
+#####
+# 2.8 Filtering
+
+#This is another feature that reflects the functional language nature of R
+# Filtering allows us to extract a vector's elements that satisfy certain conditions
+#Filtering is one of the most common opertations in R, as statistical analyses often focus on data that satisfies conditions of interest
+
+
+
+
+
+
 
 
 
