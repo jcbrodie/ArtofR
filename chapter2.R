@@ -379,6 +379,45 @@ length(v)
 # Filtering allows us to extract a vector's elements that satisfy certain conditions
 #Filtering is one of the most common opertations in R, as statistical analyses often focus on data that satisfies conditions of interest
 
+#2.8.1 Generating Filtering Indices
+# starting with a simple example:
+z <- c(5, 2, -3, 8)
+z
+z*z > 8   #we see that the operator >, like +, is actually a function
+#for example:
+">"(2,1)
+">"(2,5)
+#so the 
+z*z >8
+#is really equivalent to
+">"(z*z,8)
+#in other words, we are applying a function to vectors, and thus the result is a vector (of Booleans)
+z[c(T,F,T,T)]
+
+#the next example will place things into even sharper focus
+#we define our extraction condition in terms of z, but then use the results to extract from another vectory, y
+
+z <- c(5, 2, -3, 8)
+j <- z*z > 8
+j
+y <- c(1,2,30,5)
+y[j]
+
+#or, more compactly:
+z <- c(5, 2, -3, 8)
+y <- c(1,2,30,5)
+y[z*z > 8]
+
+#here is another example, this time involving assignment:
+x[x>3] <- 0
+#Let's check:
+x <- c(1,3,8,2,20)
+x[x>3] <- 0
+x
+
+
+#2.8.2 Filtering with the subset() Function
+# filtering can also be done using subset(). the difference between this and ordinary filtering is the way NAs are handled
 
 
 
