@@ -418,9 +418,123 @@ x
 
 #2.8.2 Filtering with the subset() Function
 # filtering can also be done using subset(). the difference between this and ordinary filtering is the way NAs are handled
+x <- c(6, 1:3, NA, 12)
+x
+x[x>5]  #NA included
+subset(x, x>5) #NA not included
+
+#2.8.3 The Selection function which()
+# use which() to find the positions within z at which a certain condition occurs
+z <- c(5,2,-3,8)
+which(z*z > 8)  #returns the elements of z which have squares greater than 8 (1,3,and 4)
+
+#Recall the code we used earlier to find the first 1 value within a vector x:
+
+#one way to write a function to determine the index of the first 1 value in the function's vector argument 
+# (we are assuming that there is indeed such a value)
+first1 <- function(x) {
+    for (i in 1:length(x)){
+        if (x[i] == 1) break   #break out of loop
+    }
+    return(i)
+}
+
+#Here is an alternative way of coding this task:
+first1a <- function(x) return(which(x == 1)[1])
+#the call to which() yields the indices of the 1s in x. These indices will be given in the form of a vector, and we ask for element
+#index 1 in that vector, which is the index of the first 1
+
+#the above is more compact, but it is wasteful, since it finds ALL instances of 1 in x, when we only need the first
 
 
+#####
+# 2.9: A Vectorized if-then-else: The ifelse() Function
+#In addition to the normal if-then-else construct, R also includes a vectorized version, the ifelse() function:
+# the format is: ifelse(b,u,v)
+#b is a Boolean vector, and u and v are vectors
+#the return value itself is a vector as well. Let's see an example to understand it.
 
+x <- 1:10
+y <- ifelse(x%%2 == 0, 5, 12)
+y
+#so we are producing a vector in which there is a 5 wherever x is even or a 12 wherever x is odd
+
+#Here is another example:
+x <- c(5,2,9,12)
+ifelse(x>6, 2*x, 3*x)
+
+#the advantage of ifelse() is that it is vectorized, and thus potentially much faster
+
+#2.9.1: Extended Example: A measure of association
+
+#2.9.2: Extended Example: Recording an abalone data set
+#omitted the examples because it's hard/annoying to do without the data
+
+#####
+# 2.10: Testing Vector Equality
+
+# If we want to test whether two vectors are equal, the naive approach using == won't work:
+x <- 1:3
+y <- c(1,3,4)
+x == y
+
+#just like almost everything else in R, == is a function
+"=="(3,2)
+i<-2
+"=="(i,2)
+
+#in fact, == is a vectorized function
+
+# so what can be done instead?
+# we could work with the vectorized nature of == using the function all():
+x <- 1:3
+y <- c(1,3,4)
+x == y
+all(x == y)
+
+#BUT, even better, we could use identical():
+identical(x,y)
+
+#Be careful with this though:
+x <- 1:2
+y <- c(1,2)
+x
+y
+identical(x,y)
+typeof(x)
+typeof(y)
+
+
+#####
+# 2.11: Vector Element Names
+
+# the elements of a vector can optionally be given names. Use the names() function:
+x <- c(1,2,4)
+names(x)
+names(x) <- c("a", "b", "ab")
+names(x)
+x
+
+#can remove the names by assigning NULL
+names(x) <- NULL
+x
+
+#can reference elements of the vector by name:
+x <- c(1,2,4)
+names(x) <- c("a", "b", "ab")
+x["b"]
+
+
+#####
+# 2.12: More on c()
+# Here we just discuss some miscellaneous facts about c(), the concatenate function, that often come in handy
+
+#if the arguments you pass to c are of different modes, they will be reduced to a type that is the lowest common denominator:
+c(5,2,"abc") #mixing integer and character modes, and R chooses the latter
+c(5,2,list(a=1, b=4)) #list mode here is of lower precedence
+
+#another point to note: c has a flattening effect for vectors:
+c(5,2,c(1.5,6)) #this just results in a single vector, not a 2-level list
 
 
 
