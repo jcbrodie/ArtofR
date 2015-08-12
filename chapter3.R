@@ -77,3 +77,50 @@ y[-2,] #means we want all rows of y except the second
 #3.2.3 Extended Example: Image Manipulation
 # Excluded again because specifics hard to match 
 
+# 3.2.4 Filtering on Matrices
+# Filtering can be done with matriecs just as is done with vectors. Must be careful with the syntax though. 
+# Start with a simple example:
+x <- matrix( c(1,2,3,2,3,4), nrow=3)
+x
+x[x[,2] >= 3,]
+
+# let's break it down to understand things a little better
+j <- x[,2] >= 3
+j
+x[j,]
+
+# for performance purposes, it's worth noting that the computation of j here is a completely vectorized operation
+
+#here is another example, using the same x:
+#(what is z? I made it up to get the correct results)
+z <- c(1,2,3)
+x[z%% 2 == 1,]
+
+#Here is another example:
+m <- matrix(c(1,2,3,4,5,6), nrow=3)
+m
+m[m[,1] > 1 & m[,2] > 5,]
+
+#And since matrices are vectors, you can also apply vector operations to them. For example:
+
+m <- matrix(c(5,2,9,-1,10,11), nrow=3)
+m
+which(m>2)
+
+
+#3.2.5 Extended Example: Generating a Covariance Matrix
+# This example demonstrates the row() and col() functions, whose arguments are matrices
+#for example, for a matrix a, row(a[2,8]) will return the row number of that element of a, which is 2.
+#It is omitted. Useful to read through in the book though. 
+
+
+#####
+# 3.3: Applying functions to Matrix Rows and Columns
+
+
+
+
+
+
+
+
