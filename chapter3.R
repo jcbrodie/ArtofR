@@ -117,8 +117,30 @@ which(m>2)
 #####
 # 3.3: Applying functions to Matrix Rows and Columns
 
+# The *apply family of functions is one of the most famous and most used features of R
 
+#3.3.1 Using the apply() function
+# General form of apply for matrices: apply(m, dimcode, f, fargs)
 
+#For example, here we apply the R function mean() to each column of a matrix z:
+z <- matrix(c(1,2,3,4,5,6), nrow=3)
+z
+apply(z,2,mean)
+
+#can also use apply with a function you write yourself, for example:
+f <- function(x) x/c(2,8)
+y <- apply(z,1,f)
+y
+
+#the transpose function t() can be useful to swap rows and cols:
+t(apply(z,1,f))
+
+#an example of a matrix function that produces a vector as a result
+copymaj <- function(rw,d){
+    maj <- sum(rw[1:d]) / d
+    return(if(maj > 0.5) 1 else 0)
+}
+copymaj
 
 
 
