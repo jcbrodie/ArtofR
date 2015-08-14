@@ -147,3 +147,70 @@ x
 apply(x,1,copymaj,3)
 apply(x,1,copymaj,2)
 
+## INTERESTING FACT: contrary to common opinion, using apply() will generally not speed up your code. 
+# The benefits are that it makes for very compact code, which may be easier to read and modify.
+# Also, as R moves closer to parallel processing, functions like apply() will become more and more important
+
+# 3.3.2 Extended Example: Finding Outliers
+# omitted, as usual. Useful to read through this section though.
+
+
+#####
+# 3.4 Adding and Deleting Matrix Rows and Columns 
+
+# Technically, matrices are of fixed length and dimensions, so we cannot add or delete rows or columns. 
+# However, matrices can be reassigned, which accomplishes almost the same thing. 
+
+#3.4.1 Changing the size of a matrix
+# First recall how we reassign vectors to change their size
+
+x <- c(12 5 13 16 18)
+x
+x z- c(x,20) #append 20
+x
+x <- c(x[1:3], 20, x[4:6]) #insert 20
+x
+x <- x[-2:4] #delete elements 2 through 4
+x
+
+#Note: reassignment occurs even when you don't see it
+
+#Analogous operations can be used to change the size of a matrix. For instance, rbind() and cbind() let you add rows or cols to a matrix:
+one <- c(1,1,1,1)
+one
+z <- matrix(c(1,2,3,4,1,1,0,0,1,0,1,0), nrow=4)
+z
+cbind(one,z)
+#could also do
+z <- cbind(one,z)
+#or, we could have relied on recycling here:
+cbind(1,z)
+
+# we can also use rbind and cbind as a quick way to create small matrices:
+q <- cbind(c(1,2), c(3,4))
+q
+
+# be aware that rbind and cbind may be creating a new matrix on every call, which could become time-consuming
+# If you are adding rows or cols one at a time within a loop and the matrix will eventually become large, 
+# it's better to allocate a large matrix in the first place. It will be empty at first but then you fill in the values rather than 
+# doing a memory re-allocation each time.
+
+#you can delete rows or cols by reassignment too:
+m <- matrix(1:6, nrow=3)
+m
+m <- m[c(1,3),]
+m
+
+# 3.4.2 Extended Example: Finding the closest pair of vertices in a graph
+# Very interesting (and useful to me) example, but omitted from here as usual. Definitely worth reading through though!
+
+
+#####
+# 3.5 More on the Vector/Matrix Distinction 
+
+
+
+
+
+
+
