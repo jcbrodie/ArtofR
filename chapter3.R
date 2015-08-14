@@ -142,7 +142,8 @@ copymaj <- function(rw,d){
 }
 copymaj
 
-
-
-
+x <- matrix(c(1,1,1,0,0,1,0,1,1,1,0,1,1,1,1,1,0,0,1,0), nrow=4)
+x
+apply(x,1,copymaj,3)
+apply(x,1,copymaj,2)
 
