@@ -208,9 +208,95 @@ m
 #####
 # 3.5 More on the Vector/Matrix Distinction 
 
+# Here we take a closer look at the vector nature of matrices...
+#Consider this example:
+z <- matrix(1:8, nrow=4)
+z
+#as z is still a vector, we can get its length
+length(z)
+#but, as a matrix, it is a bit more than a vector:
+class(z)
+attributes(z)
+
+#in other words, there actually is a matrix class, in the OOP sense
+
+#can also obtain the dimensions using dim()
+dim(z)
+
+#number of rows and cols can be found using nrow() and ncol()
+nrow(z)
+ncol(z) #these just piggyback on dim()
+
+
+#####
+# 3.6: Avoiding Unintended Dimension Reduction
+
+#Say we have a 4-row matrix and extract a row from it:
+z <- matrix(c(1,2,3,4,5,6,7,8), nrow=4)
+z
+r <- z[,2]
+r
+#seems innocuous, but note the format in which R has displayed r. Vector, not matrix.
+# to confirm:
+attributes(z)
+attributes(r)
+str(z)
+str(r)
+#this may seem natural, but it can cause trouble in programs that do a lot of matrix operations
+
+#Fortunately, R has a way to suppress this dimension reduction: the 'drop' argument
+r <- z[2,,drop=FALSE]
+r
+dim(r)
+#so now r is a 1x2 matrix instead of a vector!
+
+#if you have a vector that you wish to be treated as a matrix, you can use the as.matrix() function, as follows:
+u <- c(1,2,3)
+u
+v <- as.matrix(u)
+attributes(u)
+attributes(v)
 
 
 
+#####
+# 3.7: Naming Matrix Rows and Columns
 
+#the natural way to refer to rows and cols in a matrix is via the row and col numbers
+#BUT, you can also name these entities. For example:
+z <- matrix(c(1,2,3,4), nrow=2)
+colnames(z)
+colnames(z) <- c("a","b")
+z
+colnames(z)
+#the function rownames() also works similarly
+
+
+
+#####
+# 3.8: Higher-Dimensional Arrays
+
+#As a simple example, consider students and test scores. Say each test consists of 2 parts, so we record 2 scores for a student for each test.
+# Now suppose we have two tests, and to keep the example small, say we only have 3 students. 
+
+#Here's the data for the first test:
+firsttest <- matrix(c(46,21,50,30,25,50), nrow=3)
+secondtest <- matrix(c(46,41,50,43,35,50), nrow=3)
+
+#now let's put both tests into one data structure, which we'll name tests
+#we'll have 2 layers, one for each test, with 3 rows and two cols within each layer. firsttest in the first layer and secondtest in the second.
+
+tests <- array(data=c(firsttest,secondtest),dim=c(3,2,2))
+#the argument dim(3,2,2) is specifying two layers (the second 2) that are each 3 by 2
+#this then becomes an attribute of the data structure
+attributes(tests)
+
+#to retrieve scores, it works like this:
+tests[3,2,1] #the score on the second portion of test 1 for student 3
+
+#R's print function for arrays displays the data layer by layer:
+tests
+
+#four dimensional arrays can be built by combining two or more three-dimensional arrays, and so on.
 
 
