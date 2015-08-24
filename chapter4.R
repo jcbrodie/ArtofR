@@ -126,6 +126,42 @@ wun
 #####
 # 4.4: Applying Functions to Lists
 
+#two functions are handy for applying functions to lists: lapply and sapply
+
+#4.4.1 Using the lapply() and sapply() functions
+#lapply (l is for list) works like the matrix function apply, calling the specified function on each component of a list (or vector coerced to a list)
+# and returning another list. Here's an example:
+lapply(list(1:3,25:29),median)
+#R applies median() to 1:3 and 25:29, returning a list consisting of 2 and 27
+
+#In some cases, such as the previous example, the list returned by lapply could be simplified to a vector or matrix.
+#this is exactly what sapply ("simplified [l]apply") does:
+sapply(list(1:3,25:29),median)
+
+#4.4.2 Extended Example: Text Concordance, Continued
+# Also omitted, as usual
+
+#4.4.3 Extended Example: Back to the Abalone Data
+#also omitted (this part was pretty short anyway)
+
+
+#####
+# 4.5: Recursive Lists
+
+#Lists can be recursive, meaning you can have lists within lists
+#Here's an example: 
+b <- list(u=5, v=12)
+c <- list(w=13)
+a <- list(b,c)
+a
+
+length(a)
+#the above code makes a 2-component list, with each component itself also being a list
+
+
+# the concatenate function c() has an optional argument recursive, which controls whether flattening occurs when recursive lists are combined
+c(list(a=1,b=2,c=list(d=5,e=9))) #default value of recursive is FALSE, so here we get a recursive list
+c(list(a=1,b=2,c=list(d=5,e=9)), recursive=T) #(it is odd that setting recursive to TRUE gives a nonrecursive list)
 
 
 
